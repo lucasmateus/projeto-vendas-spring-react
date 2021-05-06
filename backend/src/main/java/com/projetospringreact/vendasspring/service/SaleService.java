@@ -1,6 +1,8 @@
 package com.projetospringreact.vendasspring.service;
 
 import com.projetospringreact.vendasspring.dto.SaleDTO;
+import com.projetospringreact.vendasspring.dto.SaleSuccessDTO;
+import com.projetospringreact.vendasspring.dto.SaleSumDTO;
 import com.projetospringreact.vendasspring.entities.Sale;
 import com.projetospringreact.vendasspring.repositories.SaleRepository;
 import com.projetospringreact.vendasspring.repositories.SellerRepository;
@@ -28,5 +30,15 @@ public class SaleService {
         sellerRepository.findAll();
         Page<Sale> result = repository.findAll(pageable);
         return result.map(x -> new SaleDTO(x));
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSumDTO> amountGroupedBySeller(){
+        return repository.amountGroupedBySeller();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSuccessDTO> successGroupedBySeller(){
+        return repository.successGroupedBySeller();
     }
 }

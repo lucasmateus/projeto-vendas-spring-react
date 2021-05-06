@@ -1,6 +1,8 @@
 package com.projetospringreact.vendasspring.controllers;
 
 import com.projetospringreact.vendasspring.dto.SaleDTO;
+import com.projetospringreact.vendasspring.dto.SaleSuccessDTO;
+import com.projetospringreact.vendasspring.dto.SaleSumDTO;
 import com.projetospringreact.vendasspring.dto.SellerDTO;
 import com.projetospringreact.vendasspring.service.SaleService;
 import com.projetospringreact.vendasspring.service.SellerService;
@@ -24,6 +26,18 @@ public class SaleController {
     @GetMapping
     public ResponseEntity<Page<SaleDTO>> findAll(Pageable pageable) {
         Page<SaleDTO> list = service.findAll(pageable);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/amount-by-seller")
+    public ResponseEntity<List<SaleSumDTO>> amountGroupedBySeller() {
+        List<SaleSumDTO> list = service.amountGroupedBySeller();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/success-by-seller")
+    public ResponseEntity<List<SaleSuccessDTO>> successGroupedBySeller() {
+        List<SaleSuccessDTO> list = service.successGroupedBySeller();
         return ResponseEntity.ok(list);
     }
 }
